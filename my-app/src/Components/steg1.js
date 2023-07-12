@@ -4,7 +4,7 @@ class BookingSystem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      daysOfWeek: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      daysOfWeek: ['Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör', 'Sön'],
       timeslots: ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
       bookings: {},
       currentDate: new Date(),
@@ -53,7 +53,7 @@ class BookingSystem extends React.Component {
         <table>
           <thead>
             <tr>
-              <th>Day</th>
+              <th>Tid</th>
               {daysOfWeek.map((day) => (
                 <th key={day}>{day}</th>
               ))}
