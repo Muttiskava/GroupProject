@@ -49,21 +49,20 @@ class BookingSystem extends React.Component {
     weekEnd.setDate(weekEnd.getDate() + 6); // Sätter veckans slutdag till söndag
 
     return (
-      <div>
+      <div className='container'>
         <h1 className='header'>Booking System</h1>
         <div className="nextWeek">
-          <button onClick={this.handlePrevWeek}>Previous Week</button>
-          <button onClick={this.handleNextWeek}>Next Week</button>
+          <button className='btn btn-primary' onClick={this.handlePrevWeek}>Previous Week</button>
+          <button className='btn btn-primary' onClick={this.handleNextWeek}>Next Week</button>
         </div>
-        <table>
-          <thead>
+        <div className="table-container">
+        <table className='table'>
+          <thead className='thead-DARK'> 
             <tr>
               {daysOfWeek.map((day) => (
                 <th key={day}>{day}</th>
               ))}
             </tr>
-          </thead>
-          <tbody>
             <tr>
               {daysOfWeek.map((day, index) => {
                 const date = new Date(weekStart);
@@ -75,6 +74,8 @@ class BookingSystem extends React.Component {
                 );
               })}
             </tr>
+          </thead>
+          <tbody>
             {timeslots.map((time, timeIndex) => (
               <tr key={time}>
                 {daysOfWeek.map((day, dayIndex) => {
@@ -94,6 +95,7 @@ class BookingSystem extends React.Component {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     );
   }

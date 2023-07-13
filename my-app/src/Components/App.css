@@ -32,17 +32,17 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.nextWeek{
+.nextWeek {
   display: flex;
-  justify-content: space-evenly;;
+  justify-content: space-evenly;
+  ;
 }
-  
-
 
 
 table {
@@ -59,7 +59,7 @@ td {
   vertical-align: bottom;
 }
 
-.header{
+.header {
 
   display: flex;
   flex-direction: column;
@@ -79,6 +79,7 @@ td {
 }
 
 @media (max-width: 600px) {
+
   th,
   td {
     font-size: 12px;
@@ -113,6 +114,9 @@ th {
 }
 
 .timeslot-cell {
-  width: 50px; /* Justera storleken efter dina önskemål */
-  height: 40px; /* Justera storleken efter dina önskemål */
+  width: 10px;
+  /* Justera storleken efter dina önskemål */
+  height: 40px;
+  /* Justera storleken efter dina önskemål */
 }
+
