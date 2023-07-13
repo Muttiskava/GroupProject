@@ -1,5 +1,9 @@
 import React from 'react';
 
+import './App.css'
+
+
+
 class BookingSystem extends React.Component {
   constructor(props) {
     super(props);
@@ -36,19 +40,19 @@ class BookingSystem extends React.Component {
 
   render() {
     const { daysOfWeek, timeslots, bookings, currentDate } = this.state;
-
+  
     const weekStart = new Date(currentDate);
-    weekStart.setDate(currentDate.getDate()+1 - currentDate.getDay()); // Sätter veckans startdag till måndag
-
+    weekStart.setDate(currentDate.getDate() + 1 - currentDate.getDay()); // Sätter veckans startdag till måndag
+  
     const weekEnd = new Date(weekStart);
     weekEnd.setDate(weekEnd.getDate() + 6); // Sätter veckans slutdag till söndag
-
+  
     return (
       <div>
-        <h1>Booking System</h1>
-        <div className="booking-nav">
+        <h1 className='header'>Booking System</h1>
+        <div className="nextWeek">
           <button onClick={this.handlePrevWeek}>Previous Week</button>
-          <button onClick={this.handleNextWeek}>Next Week</button>
+          <button  onClick={this.handleNextWeek}>Next Week</button>
         </div>
         <table>
           <thead>
@@ -65,7 +69,11 @@ class BookingSystem extends React.Component {
               {daysOfWeek.map((day, index) => {
                 const date = new Date(weekStart);
                 date.setDate(date.getDate() + index);
-                return <td key={index}>{date.toLocaleDateString()}</td>;
+                return (
+                  <td key={index}>
+                    {date.getDate()} {/* Visa endast dagen */}
+                  </td>
+                );
               })}
             </tr>
             {timeslots.map((time) => (
@@ -80,7 +88,7 @@ class BookingSystem extends React.Component {
                       onClick={() => this.handleBookingClick(day, time)}
                       className={bookings[day] && bookings[day][time] ? 'booked' : ''}
                     >
-                      {bookings[day] && bookings[day][time] ? 'Booked' : 'Available'}
+                      {bookings[day] && bookings[day][time] ? 'Bokad' : 'Tillänglig'}
                     </td>
                   );
                 })}
@@ -91,6 +99,7 @@ class BookingSystem extends React.Component {
       </div>
     );
   }
+  
 }
 
 export default BookingSystem;

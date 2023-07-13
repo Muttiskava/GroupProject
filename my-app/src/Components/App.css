@@ -36,3 +36,48 @@
     transform: rotate(360deg);
   }
 }
+
+.nextWeek{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+table {
+  margin: 0 auto;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 8px;
+}
+
+.date-cell {
+  vertical-align: bottom;
+}
+
+.header{
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+@media (max-width: 600px) {
+  .table-container {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 50%;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+  th,
+  td {
+    font-size: 12px;
+  }
+}
