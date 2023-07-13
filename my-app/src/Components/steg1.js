@@ -75,18 +75,18 @@ class BookingSystem extends React.Component {
                 );
               })}
             </tr>
-            {timeslots.map((time) => (
+            {timeslots.map((time, timeIndex) => (
               <tr key={time}>
-                {daysOfWeek.map((day, index) => {
+                {daysOfWeek.map((day, dayIndex) => {
                   const date = new Date(weekStart);
-                  date.setDate(date.getDate() + index);
+                  date.setDate(date.getDate() + dayIndex);
                   return (
                     <td
-                      key={index}
+                      key={dayIndex}
                       onClick={() => this.handleBookingClick(day, time)}
                       className={bookings[day] && bookings[day][time] ? 'booked' : ''}
                     >
-                      {bookings[day] && bookings[day][time] ? 'Bokad' : 'Tillänglig'}
+                      {bookings[day] && bookings[day][time] ? 'Bokad' : timeslots[timeIndex]}
                     </td>
                   );
                 })}
