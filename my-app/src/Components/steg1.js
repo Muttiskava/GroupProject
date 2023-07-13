@@ -1,21 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
-class BookingSystem extends React.Component {
-  constructor(props) {
-    super(props);
-    // State-variabler som används i komponenten
-    this.state = {
-      daysOfWeek: ['Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör', 'Sön'], // Array med veckodagar
-      timeslots: ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'], // Array med tidsluckor
-      bookings: {}, // Objekt som håller reda på bokningar för varje vecka separat
-      currentDate: new Date(), // Aktuellt datum
-    };
-  }
+function BookingSystem() {
+  // State-variabler som används i komponenten
+  const [daysOfWeek] = useState(['Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör', 'Sön']); // Array med veckodagar
+  const [timeslots] = useState(['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00']); // Array med tidsluckor
+  const [bookings, setBookings] = useState({}); // Objekt som håller reda på bokningar för varje vecka separat
+  const [currentDate, setCurrentDate] = useState(new Date()); // Aktuellt datum
 
   // Funktion som anropas när en bokning klickas på
-  handleBookingClick = (day, time) => {
-    const { bookings, currentDate } = this.state;
+  const handleBookingClick = (day, time) => {
+    // Skapa kopior av state-variablerna
     const currentWeek = new Date(currentDate);
     currentWeek.setDate(currentWeek.getDate() + 1 - currentWeek.getDay()); // Sätter veckans startdag till måndag
     const weekStart = new Date(currentWeek);
@@ -23,94 +18,92 @@ class BookingSystem extends React.Component {
     weekEnd.setDate(weekEnd.getDate() + 6); // Sätter veckans slutdag till söndag
     const weekKey = `${weekStart.toISOString()}-${weekEnd.toISOString()}`; // Skapar en nyckel för veckan
 
-    const weekBookings = { ...bookings };
-    if (!weekBookings[weekKey]) {
-      weekBookings[weekKey] = {};
+    // Uppdatera bokningar
+    const updatedBookings = { ...bookings };
+    if (!updatedBookings[weekKey]) {
+      updatedBookings[weekKey] = {};
     }
-    if (!weekBookings[weekKey][day]) {
-      weekBookings[weekKey][day] = {};
+    if (!updatedBookings[weekKey][day]) {
+      updatedBookings[weekKey][day] = {};
     }
-    weekBookings[weekKey][day][time] = true;
-    this.setState({ bookings: weekBookings });
+    updatedBookings[weekKey][day][time] = true;
+    setBookings(updatedBookings);
+
+    alert('Tack för din bokning!');
   };
 
   // Funktion för att gå till föregående vecka
-  handlePrevWeek = () => {
-    const { currentDate } = this.state;
+  const handlePrevWeek = () => {
     const prevWeekDate = new Date(currentDate);
     prevWeekDate.setDate(prevWeekDate.getDate() - 7);
-    this.setState({ currentDate: prevWeekDate });
+    setCurrentDate(prevWeekDate);
   };
 
   // Funktion för att gå till nästa vecka
-  handleNextWeek = () => {
-    const { currentDate } = this.state;
+  const handleNextWeek = () => {
     const nextWeekDate = new Date(currentDate);
     nextWeekDate.setDate(nextWeekDate.getDate() + 7);
-    this.setState({ currentDate: nextWeekDate });
+    setCurrentDate(nextWeekDate);
   };
 
-  render() {
-    const { daysOfWeek, timeslots, bookings, currentDate } = this.state;
+  // Skapa veckans start- och slutdatum baserat på aktuellt datum
+  const currentWeek = new Date(currentDate);
+  currentWeek.setDate(currentWeek.getDate() + 1 - currentWeek.getDay()); // Sätter veckans startdag till måndag
+  const weekStart = new Date(currentWeek);
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekEnd.getDate() + 6); // Sätter veckans slutdag till söndag
+  const weekKey = `${weekStart.toISOString()}-${weekEnd.toISOString()}`; // Skapar en nyckel för veckan
 
-    const currentWeek = new Date(currentDate);
-    currentWeek.setDate(currentWeek.getDate() + 1 - currentWeek.getDay()); // Sätter veckans startdag till måndag
+  // Hämta bokningar för aktuell vecka, om de finns
+  const weekBookings = bookings[weekKey] || {};
 
-    const weekStart = new Date(currentWeek);
-    const weekEnd = new Date(weekStart);
-    weekEnd.setDate(weekEnd.getDate() + 6); // Sätter veckans slutdag till söndag
-    const weekKey = `${weekStart.toISOString()}-${weekEnd.toISOString()}`; // Skapar en nyckel för veckan
-
-    const weekBookings = bookings[weekKey] || {}; // Hämtar bokningar för aktuell vecka, om de finns
-
-    return (
-      <div className='container'>
-        <h1 className='header'>Booking System</h1>
-        <div className="nextWeek">
-          <button className='btn btn-primary' onClick={this.handlePrevWeek}>Previous Week</button>
-          <button className='btn btn-primary' onClick={this.handleNextWeek}>Next Week</button>
-        </div>
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                {daysOfWeek.map((day, index) => {
+  return (
+    <div className='container'>
+      <h1 className='header'>Booking System</h1>
+      <div className="nextWeek">
+        <button className='btn btn-primary' onClick={handlePrevWeek}>Previous Week</button>
+        <button className='btn btn-primary' onClick={handleNextWeek}>Next Week</button>
+      </div>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              {daysOfWeek.map((day, index) => {
+                const date = new Date(weekStart);
+                date.setDate(date.getDate() + index);
+                return (
+                  <th key={index} className="weekday-date-cell">
+                    <div className="day">{day}</div>
+                    <div className="date">{date.getDate()}</div>
+                  </th>
+                );
+              })}
+            </tr>
+          </thead>
+          <tbody className='body-of-table'>
+            {timeslots.map((time, timeIndex) => (
+              <tr key={time}>
+                {daysOfWeek.map((day, dayIndex) => {
                   const date = new Date(weekStart);
-                  date.setDate(date.getDate() + index);
+                  date.setDate(date.getDate() + dayIndex);
                   return (
-                    <th key={index} className="weekday-date-cell">
-                      <div className="day">{day}</div>
-                      <div className="date">{date.getDate()}</div>
-                    </th>
+                    <td
+                      key={dayIndex}
+                      className={`timeslot-cell ${weekBookings[day] && weekBookings[day][time] ? 'booked' : ''}`}
+                    >
+                      <button className='btn btn-success' onClick={() => handleBookingClick(day, time)}>
+                        {weekBookings[day] && weekBookings[day][time] ? 'Bokad' : time}
+                      </button>
+                    </td>
                   );
                 })}
               </tr>
-            </thead>
-            <tbody className='body-of-table'>
-              {timeslots.map((time, timeIndex) => (
-                <tr key={time}>
-                  {daysOfWeek.map((day, dayIndex) => {
-                    const date = new Date(weekStart);
-                    date.setDate(date.getDate() + dayIndex);
-                    return (
-                      <td
-                        key={dayIndex}
-                        className={`timeslot-cell ${weekBookings[day] && weekBookings[day][time] ? 'booked' : ''}`}
-                      >
-                        <button className='btn btn-success' onClick={() => this.handleBookingClick(day, time)}>
-                          {weekBookings[day] && weekBookings[day][time] ? 'Bokad' : time}
-                        </button>
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default BookingSystem;
