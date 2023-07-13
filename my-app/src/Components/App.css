@@ -111,3 +111,8 @@ th {
 .date-cell {
   vertical-align: bottom;
 }
+
+.timeslot-cell {
+  width: 50px; /* Justera storleken efter dina önskemål */
+  height: 40px; /* Justera storleken efter dina önskemål */
+}

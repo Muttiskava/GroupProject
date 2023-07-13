@@ -84,9 +84,9 @@ class BookingSystem extends React.Component {
                     <td
                       key={dayIndex}
                       onClick={() => this.handleBookingClick(day, time)}
-                      className={bookings[day] && bookings[day][time] ? 'booked' : ''}
+                      className={`timeslot-cell ${bookings[day] && bookings[day][time] ? 'booked' : ''}`}
                     >
-                      {bookings[day] && bookings[day][time] ? 'Bokad' : timeslots[timeIndex]}
+                      {bookings[day] && bookings[day][time] ? 'Bokad' : time}
                     </td>
                   );
                 })}
