@@ -18,17 +18,34 @@ function BookingSystem() {
     weekEnd.setDate(weekEnd.getDate() + 6); // Sätter veckans slutdag till söndag
     const weekKey = `${weekStart.toISOString()}-${weekEnd.toISOString()}`; // Skapar en nyckel för veckan
 
-    // Uppdatera bokningar
+    // Kontrollera om datumet är före dagens datum
+    if (new Date(weekEnd) < new Date().setHours(0, 0, 0, 0)) {
+      // Om datumet är före dagens datum, returnera utan att göra något
+      return;
+    }
+
+    // Skapa en kopia av bokningar-objektet med hjälp av spread-operatorn
     const updatedBookings = { ...bookings };
+
+    // Kontrollera om veckonyckeln inte finns i bokningar-objektet
     if (!updatedBookings[weekKey]) {
+      // Om veckonyckeln inte finns, skapa en tom objekt för veckan
       updatedBookings[weekKey] = {};
     }
+
+    // Kontrollera om dagen inte finns i veckans bokningar
     if (!updatedBookings[weekKey][day]) {
+      // Om dagen inte finns, skapa ett tomt objekt för dagen
       updatedBookings[weekKey][day] = {};
     }
+
+    // Uppdatera tidsbokningen för den specifika dagen och tidpunkten till true
     updatedBookings[weekKey][day][time] = true;
+
+    // Uppdatera bokningar-objektet med den uppdaterade bokningen
     setBookings(updatedBookings);
 
+    // Visa en bekräftelse till användaren att bokningen har lyckats
     alert('Tack för din bokning!');
   };
 
@@ -61,7 +78,7 @@ function BookingSystem() {
     <div className='container'>
       <h1 className='header'>Booking System</h1>
       <div className="nextWeek">
-        <button className='btn btn-primary' onClick={handlePrevWeek}>Previous Week</button>
+        <button className='btn btn-primary' onClick={handlePrevWeek} disabled={weekEnd < new Date().setHours(0, 0, 0, 0)}>Previous Week</button>
         <button className='btn btn-primary' onClick={handleNextWeek}>Next Week</button>
       </div>
       <div className="table-container">
@@ -91,7 +108,7 @@ function BookingSystem() {
                       key={dayIndex}
                       className={`timeslot-cell ${weekBookings[day] && weekBookings[day][time] ? 'booked' : ''}`}
                     >
-                      <button className='btn btn-success' onClick={() => handleBookingClick(day, time)}>
+                      <button className='btn btn-success' onClick={() => handleBookingClick(day, time)} disabled={date < new Date().setHours(0, 0, 0, 0)}>
                         {weekBookings[day] && weekBookings[day][time] ? 'Bokad' : time}
                       </button>
                     </td>
@@ -107,3 +124,4 @@ function BookingSystem() {
 }
 
 export default BookingSystem;
+
