@@ -56,45 +56,44 @@ class BookingSystem extends React.Component {
           <button className='btn btn-primary' onClick={this.handleNextWeek}>Next Week</button>
         </div>
         <div className="table-container">
-        <table className='table'>
-          <thead className='thead-DARK'> 
-            <tr>
-              {daysOfWeek.map((day) => (
-                <th key={day}>{day}</th>
-              ))}
-            </tr>
-            <tr>
-              {daysOfWeek.map((day, index) => {
-                const date = new Date(weekStart);
-                date.setDate(date.getDate() + index);
-                return (
-                  <td key={index} className="date-cell">
-                    {date.getDate()}
-                  </td>
-                );
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {timeslots.map((time, timeIndex) => (
-              <tr key={time}>
-                {daysOfWeek.map((day, dayIndex) => {
+          <table>
+            <thead>
+              <tr>
+                {daysOfWeek.map((day, index) => {
                   const date = new Date(weekStart);
-                  date.setDate(date.getDate() + dayIndex);
+                  date.setDate(date.getDate() + index);
                   return (
-                    <td
-                      key={dayIndex}
-                      onClick={() => this.handleBookingClick(day, time)}
-                      className={`timeslot-cell ${bookings[day] && bookings[day][time] ? 'booked' : ''}`}
-                    >
-                      {bookings[day] && bookings[day][time] ? 'Bokad' : time}
-                    </td>
+                    <th key={index} className="weekday-date-cell">
+                      <div className="day">{day}</div>
+                      <div className="date">{date.getDate()}</div>
+                    </th>
                   );
                 })}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className='body-of-table'>
+              {timeslots.map((time, timeIndex) => (
+                <tr key={time}>
+                  {daysOfWeek.map((day, dayIndex) => {
+                    const date = new Date(weekStart);
+                    date.setDate(date.getDate() + dayIndex);
+                    return (
+                      <td
+                        key={dayIndex}
+                        className={`timeslot-cell ${bookings[day] && bookings[day][time] ? 'booked' : ''}`}
+                        >
+                        <button className='btn btn-success' onClick={() => this.handleBookingClick(day, time)}>
+
+                          
+                        {bookings[day] && bookings[day][time] ? 'Bokad' : time}
+                        </button>
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     );

@@ -52,7 +52,7 @@ table {
 th,
 td {
   text-align: center;
-  padding: 8px;
+  /* padding: 8px; */
 }
 
 .date-cell {
@@ -100,7 +100,7 @@ td {
 td,
 th {
   border: 1px solid #ccc;
-  padding: 8px;
+  padding: 0px;
   text-align: center;
 }
 
@@ -114,9 +114,27 @@ th {
 }
 
 .timeslot-cell {
-  width: 10px;
+  width: 70px;
   /* Justera storleken efter dina önskemål */
-  height: 40px;
+  height: 50px;
   /* Justera storleken efter dina önskemål */
+  border-bottom: none;
+  border-top: none;
 }
 
+.weekday-date-cell {
+  height: 50px;
+  width: 40px;
+  
+}
+.btn-success{
+  background-color: #e6f2f0;
+  color: #124517;
+  height: 32px;
+  width: 65px;
+}
+
+.body-of-table{
+  background-color: #e6f2f0;
+  border: 1px solid #ccc;
+}
