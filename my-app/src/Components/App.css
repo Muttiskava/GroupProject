@@ -39,8 +39,11 @@
 
 .nextWeek{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-evenly;;
 }
+  
+
+
 
 table {
   margin: 0 auto;
@@ -70,7 +73,7 @@ td {
   }
 
   table {
-    width: 50%;
+    width: 100%;
     white-space: nowrap;
   }
 }
@@ -80,4 +83,31 @@ td {
   td {
     font-size: 12px;
   }
+}
+
+
+.booking-system {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.booking-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.datetime-cell {
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+.date-cell {
+  vertical-align: bottom;
 }
