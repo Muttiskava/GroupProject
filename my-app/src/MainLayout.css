@@ -1,0 +1,101 @@
+.container {
+    max-width: fit-content;
+}
+
+.squares-row {
+    display: flex;
+    justify-content: center;
+}
+
+.square {
+    display: flex;
+    width: 100px;
+    height: 60px;
+    background-color: #eee4e4;
+    flex-direction: column;
+    justify-content: center;
+    border: solid 1px black;
+    font-weight: bold;
+    align-items: center;
+}
+
+.tall-column {
+    width: 100px;
+    height: 400px;
+    background-color: #f3f3f3;
+    border: solid 1px black;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.row.justify-content-center {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    /* gap: 1px; */
+}
+
+.col-2 {
+    flex-basis: calc(20% - 100px);
+    ;
+    /* Adjust the column width and gap size */
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.bookingBtn {
+    background-color: rgb(216, 230, 228);
+    width: 83px;
+    color: black;
+    height: 50px;
+    font-size: 18px;
+    border-color: black;
+    font-weight: 500;
+}
+
+.bookingBtn:hover {
+    background-color: rgb(90, 174, 161);
+}
+
+.weekBtn {
+    background-color: rgb(216, 230, 228);
+    color: black;
+    font-weight: 500;
+    font-size: large;
+}
+
+.dateFont {
+    font-size: larger;
+}
+
+.bookingBtn.booked {
+    background-color: rgb(212, 212, 212);
+    color: rgb(0, 0, 0);
+}
+
+.bookingBtn.booked:hover {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+.bookingBtn:disabled {
+    background-color: lightgray;
+    color: white;
+    cursor: not-allowed;
+}
+
+.bookingBtn:disabled:hover {
+    background-color: lightgray;
+}
+
+.weekFont {
+    font-size: large;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
